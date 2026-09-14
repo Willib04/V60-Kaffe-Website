@@ -25,10 +25,9 @@
   <main>
 
     <section id="ausstattung">
-      <h2><span class="num">01</span> Ausstattung &amp; Parameter</h2>
+      <h2><span class="num">01</span> Ausstattung</h2>
 
       <table>
-        <caption>Ausstattung</caption>
         <thead>
           <tr><th>Ausstattung</th><th>Details</th></tr>
         </thead>
@@ -40,22 +39,37 @@
           <tr><td data-label="Ausstattung">Mühle</td><td data-label="Details">Beliebig, mittelfeine Einstellung</td></tr>
         </tbody>
       </table>
+    </section>
 
-      <table>
-        <caption>Parameter</caption>
-        <thead>
-          <tr><th>Parameter</th><th>Wert</th></tr>
-        </thead>
-        <tbody>
-          <tr><td data-label="Parameter">Kaffeemenge</td><td data-label="Wert">15&nbsp;g, mittelfein gemahlen (feiner als die klassische V60-Empfehlung, besonders bei hellen Röstungen)</td></tr>
-          <tr><td data-label="Parameter">Wassermenge</td><td data-label="Wert">250&nbsp;g, weich und gefiltert, frisch aufgekocht (100&nbsp;°C)</td></tr>
-          <tr><td data-label="Parameter">Verhältnis</td><td data-label="Wert">1:16,7</td></tr>
-        </tbody>
-      </table>
+    <section id="rechner">
+      <h2><span class="num">02</span> Rezept berechnen</h2>
+      <p>Das Rezept hält ein festes Verhältnis von 1:16,7 zwischen Kaffee und Wasser ein. Gib an, wie viel fertigen Kaffee du am Ende möchtest und wie viel Kaffeemehl dir zur Verfügung steht &ndash; daraus ergeben sich die passende Menge und der skalierte Brühablauf weiter unten.</p>
+
+      <div class="calc-grid">
+        <label class="calc-field">
+          <span class="calc-label">Menge an Kaffee am Ende</span>
+          <div class="calc-input-row">
+            <input type="number" id="input-target" min="10" step="5" value="250" inputmode="decimal" />
+            <span class="calc-unit">g</span>
+          </div>
+          <span class="calc-hint">Fertiges Getränk in der Tasse (als Faustregel &asymp; eingesetzte Wassermenge)</span>
+        </label>
+
+        <label class="calc-field">
+          <span class="calc-label">Kaffeemehl zur Verfügung</span>
+          <div class="calc-input-row">
+            <input type="number" id="input-grounds" min="1" step="0.5" value="15" inputmode="decimal" />
+            <span class="calc-unit">g</span>
+          </div>
+          <span class="calc-hint">Bereits gemahlener Kaffee, den du einsetzen kannst</span>
+        </label>
+      </div>
+
+      <div class="calc-result" id="calc-result"></div>
     </section>
 
     <section id="vorbereitung">
-      <h2><span class="num">02</span> Vorbereitung</h2>
+      <h2><span class="num">03</span> Vorbereitung</h2>
       <ol>
         <li>Filter in den V60 einlegen und mit heißem Wasser durchspülen. Das entfernt Papiergeschmack und heizt das Brühgerät vor.</li>
         <li>Spülwasser vollständig weggießen.</li>
@@ -65,30 +79,19 @@
     </section>
 
     <section id="ablauf">
-      <h2><span class="num">03</span> Der Brühablauf</h2>
+      <h2><span class="num">04</span> Der Brühablauf</h2>
+      <p class="ablauf-hint">Skaliert automatisch mit deiner Berechnung oben &ndash; Gießzeiten werden bei größeren Mengen länger, Wartezeiten zwischen den Güssen bleiben gleich.</p>
       <table class="time-table">
         <thead>
           <tr><th>Zeit</th><th>Aktion</th><th>Gesamtmenge</th></tr>
         </thead>
-        <tbody>
-          <tr><td data-label="Zeit">0:00&ndash;0:10</td><td data-label="Aktion">Wasser für den Bloom aufgießen</td><td data-label="Gesamtmenge">50&nbsp;g</td></tr>
-          <tr><td data-label="Zeit">0:10&ndash;0:15</td><td data-label="Aktion">V60 sanft schwenken (5 Sekunden), bis kein trockener Kaffee mehr sichtbar ist</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">0:15&ndash;0:45</td><td data-label="Aktion">Warten</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">0:45&ndash;1:00</td><td data-label="Aktion">Kreisend aufgießen</td><td data-label="Gesamtmenge">100&nbsp;g (40&nbsp;%)</td></tr>
-          <tr><td data-label="Zeit">1:00&ndash;1:10</td><td data-label="Aktion">Pause</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">1:10&ndash;1:20</td><td data-label="Aktion">Aufgießen</td><td data-label="Gesamtmenge">150&nbsp;g (60&nbsp;%)</td></tr>
-          <tr><td data-label="Zeit">1:20&ndash;1:30</td><td data-label="Aktion">Pause</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">1:30&ndash;1:40</td><td data-label="Aktion">Aufgießen</td><td data-label="Gesamtmenge">200&nbsp;g (80&nbsp;%)</td></tr>
-          <tr><td data-label="Zeit">1:40&ndash;1:50</td><td data-label="Aktion">Pause</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">1:50&ndash;2:00</td><td data-label="Aktion">Auf 250&nbsp;g auffüllen</td><td data-label="Gesamtmenge">250&nbsp;g (100&nbsp;%)</td></tr>
-          <tr><td data-label="Zeit">2:00&ndash;2:05</td><td data-label="Aktion">Sanft schwenken, damit sich das Bett flach absetzt</td><td data-label="Gesamtmenge">&ndash;</td></tr>
-          <tr><td data-label="Zeit">ca. 3:00</td><td data-label="Aktion">Drawdown (das vollständige Durchlaufen des Wassers durch das Kaffeebett) sollte abgeschlossen sein</td><td data-label="Gesamtmenge">&ndash;</td></tr>
+        <tbody id="ablauf-body">
         </tbody>
       </table>
     </section>
 
     <section id="warum">
-      <h2><span class="num">04</span> Warum das funktioniert</h2>
+      <h2><span class="num">05</span> Warum das funktioniert</h2>
 
       <div class="why-item">
         <h3>Der Bloom</h3>
@@ -112,7 +115,7 @@
     </section>
 
     <section id="troubleshooting">
-      <h2><span class="num">05</span> Troubleshooting</h2>
+      <h2><span class="num">06</span> Troubleshooting</h2>
       <table>
         <thead>
           <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
@@ -127,10 +130,10 @@
     </section>
 
     <section id="anpassungen">
-      <h2><span class="num">06</span> Anpassungen</h2>
+      <h2><span class="num">07</span> Anpassungen</h2>
       <dl class="adjustments">
-        <dt>Doppelte Menge</dt>
-        <dd>30&nbsp;g Kaffee auf 500&nbsp;g Wasser, gleiches Verhältnis (1:16,7) und gleicher Zeitplan, nur mit doppelten Gramm-Marken (100&nbsp;g Bloom, dann auf 200&nbsp;g / 300&nbsp;g / 400&nbsp;g / 500&nbsp;g auffüllen).</dd>
+        <dt>Andere Mengen</dt>
+        <dd>Nutze den Rechner oben &ndash; das Verhältnis (1:16,7) und der Zeitplan bleiben gleich, nur die Gramm-Marken und Gießzeiten skalieren mit.</dd>
         <dt>Dunklere Röstungen</dt>
         <dd>Wassertemperatur etwas niedriger einstellen und gröber mahlen, um Bitterkeit und Adstringenz zu vermeiden, die bei dunkleren Röstungen leichter entstehen.</dd>
       </dl>
@@ -142,5 +145,6 @@
     Quelle: <a href="https://www.youtube.com/watch?v=1oB1oDrDkHM" target="_blank" rel="noopener">A Better 1 Cup V60 Technique &ndash; James Hoffmann</a>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
