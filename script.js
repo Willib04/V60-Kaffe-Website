@@ -18,7 +18,7 @@
   var FINAL_SWIRL = 5;
   var DRAWDOWN_TAIL_BASE = 55; // Sekunden von letztem Schwenken bis "Drawdown durch" bei 250 g
 
-  var targetInput = document.getElementById("input-target");
+  var waterInput = document.getElementById("input-water");
   var groundsInput = document.getElementById("input-grounds");
   var resultEl = document.getElementById("calc-result");
   var ablaufBody = document.getElementById("ablauf-body");
@@ -41,55 +41,38 @@
     return Math.max(step, Math.round(seconds / step) * step);
   }
 
-  function calculate() {
-    var target = parseFloat(targetInput.value);
-    var grounds = parseFloat(groundsInput.value);
-
-    if (!target || !grounds || target <= 0 || grounds <= 0) {
-      resultEl.innerHTML = '<p class="calc-note warn">Bitte für beide Felder einen Wert größer 0 eingeben.</p>';
+  // Wasser bestimmt: Kaffeemehl-Feld über das feste Verhältnis nachziehen
+  function fromWater() {
+    var water = parseFloat(waterInput.value);
+    if (!water || water <= 0) {
+      resultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
       ablaufBody.innerHTML = "";
       return;
     }
+    var coffee = Math.round((water / RATIO) * 10) / 10;
+    groundsInput.value = coffee;
+    update(water, coffee);
+  }
 
-    // Beide Parameter führen unabhängig voneinander zu einer möglichen Rezeptgröße
-    // über das feste Verhältnis 1:16,7 - es gilt die kleinere (limitierende) Menge.
-    var coffeeFromTarget = target / RATIO;
-    var coffeeFromGrounds = grounds;
-
-    var coffee, water, limitedByGrounds;
-    if (coffeeFromTarget <= coffeeFromGrounds) {
-      coffee = coffeeFromTarget;
-      water = target;
-      limitedByGrounds = false;
-    } else {
-      coffee = coffeeFromGrounds;
-      water = coffeeFromGrounds * RATIO;
-      limitedByGrounds = true;
+  // Kaffeemehl bestimmt: Wasser-Feld über das feste Verhältnis nachziehen
+  function fromGrounds() {
+    var coffee = parseFloat(groundsInput.value);
+    if (!coffee || coffee <= 0) {
+      resultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
+      ablaufBody.innerHTML = "";
+      return;
     }
+    var water = Math.round(coffee * RATIO);
+    waterInput.value = water;
+    update(water, coffee);
+  }
 
-    renderResult(coffee, water, limitedByGrounds, target, grounds);
+  function update(water, coffee) {
+    renderResult(coffee, water);
     renderAblauf(water);
   }
 
-  function renderResult(coffee, water, limitedByGrounds, target, grounds) {
-    var note;
-    if (limitedByGrounds) {
-      note =
-        '<p class="calc-note warn">Dein Kaffeemehl reicht nicht für ' + fmt(target, 0) +
-        ' g fertigen Kaffee. Mit ' + fmt(grounds, 1) + ' g Kaffeemehl werden daraus rund <strong>' +
-        fmt(water, 0) + ' g</strong> fertiger Kaffee.</p>';
-    } else {
-      var rest = grounds - coffee;
-      if (rest > 0.05) {
-        note =
-          '<p class="calc-note ok">Dein Kaffeemehl reicht. Für ' + fmt(target, 0) +
-          ' g fertigen Kaffee brauchst du ' + fmt(coffee, 1) + ' g davon, ' +
-          fmt(rest, 1) + ' g bleiben übrig.</p>';
-      } else {
-        note = '<p class="calc-note ok">Dein Kaffeemehl reicht genau für dein Ziel.</p>';
-      }
-    }
-
+  function renderResult(coffee, water) {
     resultEl.innerHTML =
       '<div class="calc-stats">' +
         '<div><div class="calc-stat-num">' + fmt(coffee, 1) + '&nbsp;g</div><div class="calc-stat-label">Kaffeemehl</div></div>' +
@@ -97,8 +80,7 @@
         '<div><div class="calc-stat-num">' + fmt(water, 0) + '&nbsp;g</div><div class="calc-stat-label">Wasser</div></div>' +
         '<div class="calc-sep">=</div>' +
         '<div><div class="calc-stat-num">1:16,7</div><div class="calc-stat-label">Verhältnis</div></div>' +
-      '</div>' +
-      note;
+      '</div>';
   }
 
   function renderAblauf(water) {
@@ -163,7 +145,7 @@
     }).join("");
   }
 
-  targetInput.addEventListener("input", calculate);
-  groundsInput.addEventListener("input", calculate);
-  calculate();
+  waterInput.addEventListener("input", fromWater);
+  groundsInput.addEventListener("input", fromGrounds);
+  fromWater();
 })();

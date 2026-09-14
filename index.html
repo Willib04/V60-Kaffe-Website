@@ -43,25 +43,25 @@
 
     <section id="rechner">
       <h2><span class="num">02</span> Rezept berechnen</h2>
-      <p>Das Rezept hält ein festes Verhältnis von 1:16,7 zwischen Kaffee und Wasser ein. Gib an, wie viel fertigen Kaffee du am Ende möchtest und wie viel Kaffeemehl dir zur Verfügung steht &ndash; daraus ergeben sich die passende Menge und der skalierte Brühablauf weiter unten.</p>
+      <p>Das Rezept hält ein festes Verhältnis von 1:16,7 zwischen Kaffee und Wasser ein. Trag eines der beiden Felder ein &ndash; das andere berechnet sich automatisch daraus, ebenso wie der skalierte Brühablauf weiter unten.</p>
 
       <div class="calc-grid">
         <label class="calc-field">
-          <span class="calc-label">Menge an Kaffee am Ende</span>
+          <span class="calc-label">Wasser am Ende</span>
           <div class="calc-input-row">
-            <input type="number" id="input-target" min="10" step="5" value="250" inputmode="decimal" />
+            <input type="number" id="input-water" min="10" step="5" value="250" inputmode="decimal" />
             <span class="calc-unit">g</span>
           </div>
-          <span class="calc-hint">Fertiges Getränk in der Tasse (als Faustregel &asymp; eingesetzte Wassermenge)</span>
+          <span class="calc-hint">Menge Wasser, mit der aufgebrüht wird</span>
         </label>
 
         <label class="calc-field">
-          <span class="calc-label">Kaffeemehl zur Verfügung</span>
+          <span class="calc-label">Kaffee zur Verfügung</span>
           <div class="calc-input-row">
             <input type="number" id="input-grounds" min="1" step="0.5" value="15" inputmode="decimal" />
             <span class="calc-unit">g</span>
           </div>
-          <span class="calc-hint">Bereits gemahlener Kaffee, den du einsetzen kannst</span>
+          <span class="calc-hint">Menge Kaffeemehl, die du einsetzen möchtest</span>
         </label>
       </div>
 
