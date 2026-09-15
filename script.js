@@ -32,10 +32,10 @@
   var PREHEAT_FILTER_ABSORPTION = 10; // g, ca. konstant für einen V60-01-Papierfilter
   var PREHEAT_EVAP_RATE = { plastik: 0.02, keramik: 0.04 }; // Anteil des aufgegossenen Wassers
 
-  var preheatTargetInput = document.getElementById("input-preheat-target");
-  var preheatTargetSlider = document.getElementById("slider-preheat-target");
+  var preheatTargetDisplay = document.getElementById("preheat-target-display");
   var preheatMaterialRadios = document.querySelectorAll('input[name="preheat-material"]');
   var preheatResultEl = document.getElementById("preheat-result");
+  var currentWater = BASE_WATER;
 
   function fmt(n, decimals) {
     return n.toLocaleString("de-DE", {
@@ -84,8 +84,10 @@
   function update(water, coffee) {
     waterSlider.value = water;
     groundsSlider.value = coffee;
+    currentWater = water;
     renderResult(coffee, water);
     renderAblauf(water);
+    updatePreheat(water);
   }
 
   // Slider bestimmt: zugehöriges Zahlenfeld übernimmt den Wert, Rest wie gehabt nachziehen
@@ -183,12 +185,8 @@
     return checked ? checked.value : "keramik";
   }
 
-  function updatePreheat() {
-    var target = parseFloat(preheatTargetInput.value);
-    if (!target || target <= 0) {
-      preheatResultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
-      return;
-    }
+  function updatePreheat(target) {
+    preheatTargetDisplay.textContent = fmt(target, 0);
 
     var material = getPreheatMaterial();
     var rate = PREHEAT_EVAP_RATE[material];
@@ -205,20 +203,9 @@
       '<p class="calc-hint calc-hint-centered">Kalkuliert mit ca.&nbsp;' + fmt(loss, 0) + '&nbsp;g Verlust (Filterabsorption + Verdunstung an der ' + wall + ').</p>';
   }
 
-  function fromPreheatInput() {
-    preheatTargetSlider.value = preheatTargetInput.value;
-    updatePreheat();
-  }
-
-  function fromPreheatSlider() {
-    preheatTargetInput.value = preheatTargetSlider.value;
-    updatePreheat();
-  }
-
-  preheatTargetInput.addEventListener("input", fromPreheatInput);
-  preheatTargetSlider.addEventListener("input", fromPreheatSlider);
   for (var i = 0; i < preheatMaterialRadios.length; i++) {
-    preheatMaterialRadios[i].addEventListener("change", updatePreheat);
+    preheatMaterialRadios[i].addEventListener("change", function () {
+      updatePreheat(currentWater);
+    });
   }
-  updatePreheat();
 })();

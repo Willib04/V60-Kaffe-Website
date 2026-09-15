@@ -65,18 +65,18 @@
 
     <section id="vorwaermen">
       <h2><span class="num">03</span> Vorwärmen</h2>
-      <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Gib an, wie viel Wasser am Ende in der Kanne ankommen soll &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst.</p>
+      <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Zielmenge ist die Wassermenge aus deinem Rezept oben &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst, damit genau die ankommt.</p>
 
       <div class="calc-grid">
-        <label class="calc-field">
+        <div class="calc-field">
           <span class="calc-label">Zielmenge in der Kanne</span>
-          <div class="calc-input-row">
-            <input type="number" id="input-preheat-target" min="10" step="5" value="300" inputmode="decimal" />
+          <div class="calc-derived-row">
+            <span class="calc-derived-value" id="preheat-target-display">250</span>
             <span class="calc-unit">g</span>
+            <span class="calc-derived-tag">aus Rezept oben</span>
           </div>
-          <input type="range" id="slider-preheat-target" class="calc-slider" min="50" max="1000" step="5" value="300" aria-label="Zielmenge in der Kanne" />
           <span class="calc-hint">Wassermenge, die nach dem Vorwärmen unten ankommen soll</span>
-        </label>
+        </div>
 
         <div class="calc-field">
           <span class="calc-label">Material</span>

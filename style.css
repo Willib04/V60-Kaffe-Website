@@ -252,6 +252,33 @@ li {
   border-color: var(--accent);
 }
 
+.calc-derived-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 10px 8px 0;
+}
+
+.calc-derived-value {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+.calc-derived-tag {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--table-head);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
 .calc-slider {
   -webkit-appearance: none;
   appearance: none;
