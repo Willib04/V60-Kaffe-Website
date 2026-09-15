@@ -13,7 +13,6 @@
     <h1>James Hoffmanns &bdquo;A Better 1 Cup V60 Technique&ldquo;</h1>
     <p>Eine einfachere, leichter wiederholbare Variante der bekannten &bdquo;Ultimate V60 Technique&ldquo; &ndash; mit festen 50-g-Schritten statt exakter Gramm-Ziele.</p>
     <nav class="toc">
-      <a href="#ausstattung">Ausstattung</a>
       <a href="#vorbereitung">Vorbereitung</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#warum">Warum das funktioniert</a>
@@ -24,25 +23,8 @@
 
   <main>
 
-    <section id="ausstattung">
-      <h2><span class="num">01</span> Ausstattung</h2>
-
-      <table>
-        <thead>
-          <tr><th>Ausstattung</th><th>Details</th></tr>
-        </thead>
-        <tbody>
-          <tr><td data-label="Ausstattung">Brühgerät</td><td data-label="Details">Hario V60, Größe 01 (Plastik empfohlen: günstig, hält die Wärme, wenig Vorheizen nötig)</td></tr>
-          <tr><td data-label="Ausstattung">Filter</td><td data-label="Details">Passende Papierfilter für den V60 01</td></tr>
-          <tr><td data-label="Ausstattung">Waage</td><td data-label="Details">Mit Timer, 0,1&nbsp;g Auflösung ideal</td></tr>
-          <tr><td data-label="Ausstattung">Wasserkocher</td><td data-label="Details">Mit Schwanenhals für kontrollierten Guss</td></tr>
-          <tr><td data-label="Ausstattung">Mühle</td><td data-label="Details">Beliebig, mittelfeine Einstellung</td></tr>
-        </tbody>
-      </table>
-    </section>
-
     <section id="rechner">
-      <h2><span class="num">02</span> Rezept berechnen</h2>
+      <h2><span class="num">01</span> Rezept berechnen</h2>
       <p>Das Rezept hält ein festes Verhältnis von 1:16,7 zwischen Kaffee und Wasser ein. Trag eines der beiden Felder ein &ndash; das andere berechnet sich automatisch daraus, ebenso wie der skalierte Brühablauf weiter unten.</p>
 
       <div class="calc-grid">
@@ -52,6 +34,7 @@
             <input type="number" id="input-water" min="10" step="5" value="250" inputmode="decimal" />
             <span class="calc-unit">g</span>
           </div>
+          <input type="range" id="slider-water" class="calc-slider" min="100" max="1000" step="5" value="250" aria-label="Wasser am Ende" />
           <span class="calc-hint">Menge Wasser, mit der aufgebrüht wird</span>
         </label>
 
@@ -61,6 +44,7 @@
             <input type="number" id="input-grounds" min="1" step="0.5" value="15" inputmode="decimal" />
             <span class="calc-unit">g</span>
           </div>
+          <input type="range" id="slider-grounds" class="calc-slider" min="5" max="60" step="0.5" value="15" aria-label="Kaffee zur Verfügung" />
           <span class="calc-hint">Menge Kaffeemehl, die du einsetzen möchtest</span>
         </label>
       </div>
@@ -69,7 +53,7 @@
     </section>
 
     <section id="vorbereitung">
-      <h2><span class="num">03</span> Vorbereitung</h2>
+      <h2><span class="num">02</span> Vorbereitung</h2>
       <ol>
         <li>Filter in den V60 einlegen und mit heißem Wasser durchspülen. Das entfernt Papiergeschmack und heizt das Brühgerät vor.</li>
         <li>Spülwasser vollständig weggießen.</li>
@@ -79,7 +63,7 @@
     </section>
 
     <section id="ablauf">
-      <h2><span class="num">04</span> Der Brühablauf</h2>
+      <h2><span class="num">03</span> Der Brühablauf</h2>
       <p class="ablauf-hint">Skaliert automatisch mit deiner Berechnung oben &ndash; Gießzeiten werden bei größeren Mengen länger, Wartezeiten zwischen den Güssen bleiben gleich.</p>
       <table class="time-table">
         <thead>
@@ -91,7 +75,7 @@
     </section>
 
     <section id="warum">
-      <h2><span class="num">05</span> Warum das funktioniert</h2>
+      <h2><span class="num">04</span> Warum das funktioniert</h2>
 
       <div class="why-item">
         <h3>Der Bloom</h3>
@@ -115,7 +99,7 @@
     </section>
 
     <section id="troubleshooting">
-      <h2><span class="num">06</span> Troubleshooting</h2>
+      <h2><span class="num">05</span> Troubleshooting</h2>
       <table>
         <thead>
           <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
@@ -130,7 +114,7 @@
     </section>
 
     <section id="anpassungen">
-      <h2><span class="num">07</span> Anpassungen</h2>
+      <h2><span class="num">06</span> Anpassungen</h2>
       <dl class="adjustments">
         <dt>Andere Mengen</dt>
         <dd>Nutze den Rechner oben &ndash; das Verhältnis (1:16,7) und der Zeitplan bleiben gleich, nur die Gramm-Marken und Gießzeiten skalieren mit.</dd>

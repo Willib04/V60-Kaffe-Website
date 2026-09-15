@@ -20,6 +20,8 @@
 
   var waterInput = document.getElementById("input-water");
   var groundsInput = document.getElementById("input-grounds");
+  var waterSlider = document.getElementById("slider-water");
+  var groundsSlider = document.getElementById("slider-grounds");
   var resultEl = document.getElementById("calc-result");
   var ablaufBody = document.getElementById("ablauf-body");
 
@@ -68,8 +70,21 @@
   }
 
   function update(water, coffee) {
+    waterSlider.value = water;
+    groundsSlider.value = coffee;
     renderResult(coffee, water);
     renderAblauf(water);
+  }
+
+  // Slider bestimmt: zugehöriges Zahlenfeld übernimmt den Wert, Rest wie gehabt nachziehen
+  function fromWaterSlider() {
+    waterInput.value = waterSlider.value;
+    fromWater();
+  }
+
+  function fromGroundsSlider() {
+    groundsInput.value = groundsSlider.value;
+    fromGrounds();
   }
 
   function renderResult(coffee, water) {
@@ -147,5 +162,7 @@
 
   waterInput.addEventListener("input", fromWater);
   groundsInput.addEventListener("input", fromGrounds);
+  waterSlider.addEventListener("input", fromWaterSlider);
+  groundsSlider.addEventListener("input", fromGroundsSlider);
   fromWater();
 })();
