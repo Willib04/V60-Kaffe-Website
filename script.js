@@ -36,6 +36,24 @@
   var preheatMaterialRadios = document.querySelectorAll('input[name="preheat-material"]');
   var preheatResultEl = document.getElementById("preheat-result");
   var currentWater = BASE_WATER;
+  var currentCoffee = BASE_COFFEE;
+
+  // Empfohlene Brühtemperatur je Röstgrad: helle Röstungen sind dichter und
+  // brauchen mehr Hitze zur Extraktion, dunkle neigen bei zu heißem Wasser
+  // schneller zu Bitterkeit/Adstringenz.
+  var ROAST_TEMPS = {
+    hell: "96&ndash;98&nbsp;&deg;C",
+    mittel: "92&ndash;94&nbsp;&deg;C",
+    dunkel: "88&ndash;90&nbsp;&deg;C"
+  };
+  var roastRadios = document.querySelectorAll('input[name="roast-level"]');
+
+  // Herstellerangabe (gerundet), wie viel Wasser gleichzeitig im Kegel stehen
+  // darf, bevor er überläuft - abgeleitet aus der üblichen "Tassen"-Einteilung.
+  var DRIPPER_CAPACITY = { "01": 300, "02": 600, "03": 900 };
+  var sizeRadios = document.querySelectorAll('input[name="dripper-size"]');
+  var capacityNoteEl = document.getElementById("capacity-note");
+  var ablaufBatchNote = document.getElementById("ablauf-batch-note");
 
   function fmt(n, decimals) {
     return n.toLocaleString("de-DE", {
@@ -61,6 +79,8 @@
     if (!water || water <= 0) {
       resultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
       ablaufBody.innerHTML = "";
+      capacityNoteEl.innerHTML = "";
+      ablaufBatchNote.hidden = true;
       return;
     }
     var coffee = Math.round((water / RATIO) * 10) / 10;
@@ -74,6 +94,8 @@
     if (!coffee || coffee <= 0) {
       resultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
       ablaufBody.innerHTML = "";
+      capacityNoteEl.innerHTML = "";
+      ablaufBatchNote.hidden = true;
       return;
     }
     var water = Math.round(coffee * RATIO);
@@ -85,9 +107,49 @@
     waterSlider.value = water;
     groundsSlider.value = coffee;
     currentWater = water;
+    currentCoffee = coffee;
     renderResult(coffee, water);
-    renderAblauf(water);
+    renderBrew(water, coffee);
     updatePreheat(water);
+  }
+
+  function getRoastLevel() {
+    var checked = document.querySelector('input[name="roast-level"]:checked');
+    return checked ? checked.value : "mittel";
+  }
+
+  function getDripperSize() {
+    var checked = document.querySelector('input[name="dripper-size"]:checked');
+    return checked ? checked.value : "01";
+  }
+
+  // Prüft, ob die Wassermenge die Kapazität des gewählten Brühgeräts übersteigt.
+  // Ist das der Fall, würde der letzte Guss den Kegel randvoll laufen lassen -
+  // die Lösung ist dann nicht "anders rechnen", sondern in mehreren kleineren
+  // Durchgängen zu brühen (oder ein größeres Gerät zu nutzen).
+  function renderBrew(water, coffee) {
+    var size = getDripperSize();
+    var capacity = DRIPPER_CAPACITY[size];
+    var portions = water > capacity ? Math.ceil(water / capacity) : 1;
+
+    if (portions > 1) {
+      var brewWater = roundToStep(water / portions, 5);
+      var brewCoffee = Math.round((coffee / portions) * 10) / 10;
+
+      capacityNoteEl.innerHTML =
+        '<p class="calc-note warn">' +
+          fmt(water, 0) + '&nbsp;g Wasser übersteigen die Kapazität eines V60-' + size + ' (&asymp;' + fmt(capacity, 0) + '&nbsp;g) &ndash; beim letzten Guss würde das Wasser bis zum Rand stehen und überlaufen. ' +
+          'Brüh stattdessen <strong>' + portions + '&nbsp;Durchgänge à ' + fmt(brewWater, 0) + '&nbsp;g Wasser / ' + fmt(brewCoffee, 1) + '&nbsp;g Kaffee</strong> nacheinander, oder wähle ein größeres Brühgerät.' +
+        '</p>';
+
+      ablaufBatchNote.innerHTML = 'Zeigt einen von ' + portions + '&nbsp;Durchgängen à ' + fmt(brewWater, 0) + '&nbsp;g Wasser &ndash; für die restliche Menge wiederholen.';
+      ablaufBatchNote.hidden = false;
+      renderAblauf(brewWater);
+    } else {
+      capacityNoteEl.innerHTML = "";
+      ablaufBatchNote.hidden = true;
+      renderAblauf(water);
+    }
   }
 
   // Slider bestimmt: zugehöriges Zahlenfeld übernimmt den Wert, Rest wie gehabt nachziehen
@@ -102,6 +164,7 @@
   }
 
   function renderResult(coffee, water) {
+    var roastTemp = ROAST_TEMPS[getRoastLevel()];
     resultEl.innerHTML =
       '<div class="calc-stats">' +
         '<div><div class="calc-stat-num">' + fmt(coffee, 1) + '&nbsp;g</div><div class="calc-stat-label">Kaffeemehl</div></div>' +
@@ -109,6 +172,8 @@
         '<div><div class="calc-stat-num">' + fmt(water, 0) + '&nbsp;g</div><div class="calc-stat-label">Wasser</div></div>' +
         '<div class="calc-sep">=</div>' +
         '<div><div class="calc-stat-num">1:16,7</div><div class="calc-stat-label">Verhältnis</div></div>' +
+        '<div class="calc-sep">&middot;</div>' +
+        '<div><div class="calc-stat-num">' + roastTemp + '</div><div class="calc-stat-label">Brühtemperatur</div></div>' +
       '</div>';
   }
 
@@ -206,6 +271,18 @@
   for (var i = 0; i < preheatMaterialRadios.length; i++) {
     preheatMaterialRadios[i].addEventListener("change", function () {
       updatePreheat(currentWater);
+    });
+  }
+
+  for (var j = 0; j < roastRadios.length; j++) {
+    roastRadios[j].addEventListener("change", function () {
+      renderResult(currentCoffee, currentWater);
+    });
+  }
+
+  for (var k = 0; k < sizeRadios.length; k++) {
+    sizeRadios[k].addEventListener("change", function () {
+      renderBrew(currentWater, currentCoffee);
     });
   }
 })();

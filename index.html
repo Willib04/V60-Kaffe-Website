@@ -48,9 +48,48 @@
           <input type="range" id="slider-grounds" class="calc-slider" min="5" max="60" step="0.5" value="15" aria-label="Kaffee zur Verfügung" />
           <span class="calc-hint">Menge Kaffeemehl, die du einsetzen möchtest</span>
         </label>
+
+        <div class="calc-field">
+          <span class="calc-label">Röstgrad</span>
+          <div class="calc-toggle" role="radiogroup" aria-label="Röstgrad der Bohnen">
+            <label class="calc-toggle-option">
+              <input type="radio" name="roast-level" id="roast-hell" value="hell" />
+              <span>Hell</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="roast-level" id="roast-mittel" value="mittel" checked />
+              <span>Mittel</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="roast-level" id="roast-dunkel" value="dunkel" />
+              <span>Dunkel</span>
+            </label>
+          </div>
+          <span class="calc-hint">Bestimmt die empfohlene Brühtemperatur</span>
+        </div>
+
+        <div class="calc-field">
+          <span class="calc-label">Brühgerät-Größe</span>
+          <div class="calc-toggle" role="radiogroup" aria-label="V60-Größe">
+            <label class="calc-toggle-option">
+              <input type="radio" name="dripper-size" id="size-01" value="01" checked />
+              <span>01 &middot; 1&ndash;2 Tassen</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="dripper-size" id="size-02" value="02" />
+              <span>02 &middot; 1&ndash;4 Tassen</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="dripper-size" id="size-03" value="03" />
+              <span>03 &middot; 1&ndash;6 Tassen</span>
+            </label>
+          </div>
+          <span class="calc-hint">Begrenzt, wie viel Wasser gleichzeitig im Kegel stehen darf, ohne überzulaufen</span>
+        </div>
       </div>
 
       <div class="calc-result" id="calc-result"></div>
+      <div id="capacity-note"></div>
     </section>
 
     <section id="vorbereitung">
@@ -100,6 +139,7 @@
     <section id="ablauf">
       <h2><span class="num">04</span> Der Brühablauf</h2>
       <p class="ablauf-hint">Skaliert automatisch mit deiner Berechnung oben &ndash; Gießzeiten werden bei größeren Mengen länger, Wartezeiten zwischen den Güssen bleiben gleich.</p>
+      <p class="ablauf-hint" id="ablauf-batch-note" hidden></p>
       <table class="time-table">
         <thead>
           <tr><th>Zeit</th><th>Aktion</th><th>Gesamtmenge</th></tr>
@@ -153,8 +193,10 @@
       <dl class="adjustments">
         <dt>Andere Mengen</dt>
         <dd>Nutze den Rechner oben &ndash; das Verhältnis (1:16,7) und der Zeitplan bleiben gleich, nur die Gramm-Marken und Gießzeiten skalieren mit.</dd>
-        <dt>Dunklere Röstungen</dt>
-        <dd>Wassertemperatur etwas niedriger einstellen und gröber mahlen, um Bitterkeit und Adstringenz zu vermeiden, die bei dunkleren Röstungen leichter entstehen.</dd>
+        <dt>Röstgrad</dt>
+        <dd>Über die Röstgrad-Auswahl im Rechner oben &ndash; hellere Röstungen sind dichter und brauchen heißeres Wasser, dunklere neigen sonst zu Bitterkeit und Adstringenz und brauchen kühleres Wasser sowie einen gröberen Mahlgrad.</dd>
+        <dt>Große Mengen (V60-01 überschritten)</dt>
+        <dd>Das Rezept ist ursprünglich für ein 1-Tassen-Gerät (V60-01, ca. 300&nbsp;g Wasser) ausgelegt &ndash; proportionales Hochskalieren allein löst das nicht, weil der Kegel physisch überläuft, bevor das Wasser durchgelaufen ist. Wähle im Rechner oben die passende Brühgerät-Größe; übersteigt die Wassermenge deren Kapazität, schlägt die Seite automatisch mehrere kleinere Durchgänge statt eines übergroßen vor.</dd>
       </dl>
     </section>
 
