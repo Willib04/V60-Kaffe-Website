@@ -252,6 +252,25 @@ li {
   border-color: var(--accent);
 }
 
+.calc-select,
+.calc-field input[type="text"] {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 100%;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.calc-select:focus,
+.calc-field input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
 .calc-derived-row {
   display: flex;
   align-items: baseline;
@@ -428,6 +447,106 @@ li {
   .calc-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.bean-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+  margin: 20px 0;
+}
+
+@media (max-width: 560px) {
+  .bean-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-primary,
+.btn-secondary {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--surface);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent-dark);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+}
+
+.btn-secondary.btn-danger {
+  color: #8a4a1f;
+}
+
+.bean-list {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bean-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.bean-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bean-item-name {
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.bean-item-meta {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.bean-item-note {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.bean-item-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 footer {

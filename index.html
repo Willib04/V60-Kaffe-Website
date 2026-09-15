@@ -13,6 +13,7 @@
     <h1>James Hoffmanns &bdquo;A Better 1 Cup V60 Technique&ldquo;</h1>
     <p>Eine einfachere, leichter wiederholbare Variante der bekannten &bdquo;Ultimate V60 Technique&ldquo; &ndash; mit festen 50-g-Schritten statt exakter Gramm-Ziele.</p>
     <nav class="toc">
+      <a href="#bohnen">Bohnen-Notizen</a>
       <a href="#vorbereitung">Vorbereitung</a>
       <a href="#vorwaermen">Vorwärmen</a>
       <a href="#ablauf">Ablauf</a>
@@ -51,21 +52,15 @@
 
         <div class="calc-field">
           <span class="calc-label">Röstgrad</span>
-          <div class="calc-toggle" role="radiogroup" aria-label="Röstgrad der Bohnen">
-            <label class="calc-toggle-option">
-              <input type="radio" name="roast-level" id="roast-hell" value="hell" />
-              <span>Hell</span>
-            </label>
-            <label class="calc-toggle-option">
-              <input type="radio" name="roast-level" id="roast-mittel" value="mittel" checked />
-              <span>Mittel</span>
-            </label>
-            <label class="calc-toggle-option">
-              <input type="radio" name="roast-level" id="roast-dunkel" value="dunkel" />
-              <span>Dunkel</span>
-            </label>
-          </div>
-          <span class="calc-hint">Bestimmt die empfohlene Brühtemperatur</span>
+          <select id="roast-level" class="calc-select" aria-label="Röstgrad der Bohnen">
+            <option value="zimt">Zimtröstung (Cinnamon)</option>
+            <option value="hell">Hell (Light City)</option>
+            <option value="mittel" selected>Mittel (City)</option>
+            <option value="mitteldunkel">Mittel-Dunkel (Full City)</option>
+            <option value="dunkel">Dunkel (Vienna/French)</option>
+            <option value="sehrdunkel">Sehr dunkel &amp; ölig (Italian/Espresso)</option>
+          </select>
+          <span class="calc-hint" id="roast-grind-hint">Mahlgrad: mittel &ndash; Referenzmahlgrad des Rezepts</span>
         </div>
 
         <div class="calc-field">
@@ -92,8 +87,47 @@
       <div id="capacity-note"></div>
     </section>
 
+    <section id="bohnen">
+      <h2><span class="num">02</span> Bohnen-Notizen</h2>
+      <p>Speichere Bohne, Röstgrad und die Mahlgrad-Einstellung deiner Mühle ab, um einen guten Kaffee später exakt zu reproduzieren. Die Einträge bleiben nur in diesem Browser gespeichert (localStorage) &ndash; nicht auf einem Server.</p>
+
+      <div class="bean-form">
+        <label class="calc-field">
+          <span class="calc-label">Bohne / Röster</span>
+          <input type="text" id="bean-name" placeholder="z.&nbsp;B. Finca La Esperanza, Röster XY" />
+        </label>
+
+        <label class="calc-field">
+          <span class="calc-label">Röstgrad</span>
+          <select id="bean-roast" class="calc-select" aria-label="Röstgrad der gespeicherten Bohne">
+            <option value="zimt">Zimtröstung (Cinnamon)</option>
+            <option value="hell">Hell (Light City)</option>
+            <option value="mittel" selected>Mittel (City)</option>
+            <option value="mitteldunkel">Mittel-Dunkel (Full City)</option>
+            <option value="dunkel">Dunkel (Vienna/French)</option>
+            <option value="sehrdunkel">Sehr dunkel &amp; ölig (Italian/Espresso)</option>
+          </select>
+        </label>
+
+        <label class="calc-field">
+          <span class="calc-label">Mahlgrad (deine Mühle)</span>
+          <input type="text" id="bean-grind" placeholder="z.&nbsp;B. Comandante C40, 22 Klicks" />
+        </label>
+
+        <label class="calc-field">
+          <span class="calc-label">Notiz (optional)</span>
+          <input type="text" id="bean-note" placeholder="z.&nbsp;B. blumig, weniger Säure als sonst" />
+        </label>
+      </div>
+
+      <button type="button" id="bean-save" class="btn-primary">Bohne speichern</button>
+
+      <ul class="bean-list" id="bean-list"></ul>
+      <p class="calc-hint" id="bean-empty-hint">Noch keine Bohne gespeichert.</p>
+    </section>
+
     <section id="vorbereitung">
-      <h2><span class="num">02</span> Vorbereitung</h2>
+      <h2><span class="num">03</span> Vorbereitung</h2>
       <ol>
         <li>Filter in den V60 einlegen und mit heißem Wasser durchspülen. Das entfernt Papiergeschmack und heizt das Brühgerät vor.</li>
         <li>Spülwasser vollständig weggießen.</li>
@@ -103,7 +137,7 @@
     </section>
 
     <section id="vorwaermen">
-      <h2><span class="num">03</span> Vorwärmen</h2>
+      <h2><span class="num">04</span> Vorwärmen</h2>
       <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Zielmenge ist die Wassermenge aus deinem Rezept oben &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst, damit genau die ankommt.</p>
 
       <div class="calc-grid">
@@ -137,7 +171,7 @@
     </section>
 
     <section id="ablauf">
-      <h2><span class="num">04</span> Der Brühablauf</h2>
+      <h2><span class="num">05</span> Der Brühablauf</h2>
       <p class="ablauf-hint">Skaliert automatisch mit deiner Berechnung oben &ndash; Gießzeiten werden bei größeren Mengen länger, Wartezeiten zwischen den Güssen bleiben gleich.</p>
       <p class="ablauf-hint" id="ablauf-batch-note" hidden></p>
       <table class="time-table">
@@ -150,7 +184,7 @@
     </section>
 
     <section id="warum">
-      <h2><span class="num">05</span> Warum das funktioniert</h2>
+      <h2><span class="num">06</span> Warum das funktioniert</h2>
 
       <div class="why-item">
         <h3>Der Bloom</h3>
@@ -174,7 +208,7 @@
     </section>
 
     <section id="troubleshooting">
-      <h2><span class="num">06</span> Troubleshooting</h2>
+      <h2><span class="num">07</span> Troubleshooting</h2>
       <table>
         <thead>
           <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
@@ -189,12 +223,12 @@
     </section>
 
     <section id="anpassungen">
-      <h2><span class="num">07</span> Anpassungen</h2>
+      <h2><span class="num">08</span> Anpassungen</h2>
       <dl class="adjustments">
         <dt>Andere Mengen</dt>
         <dd>Nutze den Rechner oben &ndash; das Verhältnis (1:16,7) und der Zeitplan bleiben gleich, nur die Gramm-Marken und Gießzeiten skalieren mit.</dd>
         <dt>Röstgrad</dt>
-        <dd>Über die Röstgrad-Auswahl im Rechner oben &ndash; hellere Röstungen sind dichter und brauchen heißeres Wasser, dunklere neigen sonst zu Bitterkeit und Adstringenz und brauchen kühleres Wasser sowie einen gröberen Mahlgrad.</dd>
+        <dd>Über die Röstgrad-Auswahl im Rechner oben (Zimtröstung bis sehr dunkel &amp; ölig) &ndash; hellere, dichtere Röstungen brauchen heißeres Wasser und einen eher feineren Mahlgrad, dunklere und vor allem ölige Röstungen sind poröser, extrahieren schneller und brauchen kühleres Wasser sowie einen deutlich gröberen Mahlgrad und kürzere Brühzeit, sonst kippt der Kaffee schnell in Richtung bitter/aschig.</dd>
         <dt>Große Mengen (V60-01 überschritten)</dt>
         <dd>Das Rezept ist ursprünglich für ein 1-Tassen-Gerät (V60-01, ca. 300&nbsp;g Wasser) ausgelegt &ndash; proportionales Hochskalieren allein löst das nicht, weil der Kegel physisch überläuft, bevor das Wasser durchgelaufen ist. Wähle im Rechner oben die passende Brühgerät-Größe; übersteigt die Wassermenge deren Kapazität, schlägt die Seite automatisch mehrere kleinere Durchgänge statt eines übergroßen vor.</dd>
       </dl>
