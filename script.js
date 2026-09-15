@@ -25,6 +25,18 @@
   var resultEl = document.getElementById("calc-result");
   var ablaufBody = document.getElementById("ablauf-body");
 
+  // Vorwärmen: Verlust beim Durchspülen, bevor das Wasser unten in der Kanne ankommt.
+  // Ein fester Anteil bleibt im nassen Papierfilter hängen (unabhängig vom Material),
+  // ein weiterer Anteil verdampft/verbleibt als Film an der heißen Wandung - dieser Anteil
+  // ist bei Keramik höher, weil sie länger heiß bleibt und mehr Wärme (und damit Dampf) zieht.
+  var PREHEAT_FILTER_ABSORPTION = 10; // g, ca. konstant für einen V60-01-Papierfilter
+  var PREHEAT_EVAP_RATE = { plastik: 0.02, keramik: 0.04 }; // Anteil des aufgegossenen Wassers
+
+  var preheatTargetInput = document.getElementById("input-preheat-target");
+  var preheatTargetSlider = document.getElementById("slider-preheat-target");
+  var preheatMaterialRadios = document.querySelectorAll('input[name="preheat-material"]');
+  var preheatResultEl = document.getElementById("preheat-result");
+
   function fmt(n, decimals) {
     return n.toLocaleString("de-DE", {
       minimumFractionDigits: decimals,
@@ -165,4 +177,48 @@
   waterSlider.addEventListener("input", fromWaterSlider);
   groundsSlider.addEventListener("input", fromGroundsSlider);
   fromWater();
+
+  function getPreheatMaterial() {
+    var checked = document.querySelector('input[name="preheat-material"]:checked');
+    return checked ? checked.value : "keramik";
+  }
+
+  function updatePreheat() {
+    var target = parseFloat(preheatTargetInput.value);
+    if (!target || target <= 0) {
+      preheatResultEl.innerHTML = '<p class="calc-note warn">Bitte einen Wert größer 0 eingeben.</p>';
+      return;
+    }
+
+    var material = getPreheatMaterial();
+    var rate = PREHEAT_EVAP_RATE[material];
+    var needed = roundToStep((target + PREHEAT_FILTER_ABSORPTION) / (1 - rate), 5);
+    var loss = needed - target;
+    var wall = material === "keramik" ? "Keramik" : "Kunststoffwand";
+
+    preheatResultEl.innerHTML =
+      '<div class="calc-stats">' +
+        '<div><div class="calc-stat-num">' + fmt(needed, 0) + '&nbsp;g</div><div class="calc-stat-label">Vorwärmwasser aufgießen</div></div>' +
+        '<div class="calc-sep">&rarr;</div>' +
+        '<div><div class="calc-stat-num">' + fmt(target, 0) + '&nbsp;g</div><div class="calc-stat-label">kommt in der Kanne an</div></div>' +
+      '</div>' +
+      '<p class="calc-hint calc-hint-centered">Kalkuliert mit ca.&nbsp;' + fmt(loss, 0) + '&nbsp;g Verlust (Filterabsorption + Verdunstung an der ' + wall + ').</p>';
+  }
+
+  function fromPreheatInput() {
+    preheatTargetSlider.value = preheatTargetInput.value;
+    updatePreheat();
+  }
+
+  function fromPreheatSlider() {
+    preheatTargetInput.value = preheatTargetSlider.value;
+    updatePreheat();
+  }
+
+  preheatTargetInput.addEventListener("input", fromPreheatInput);
+  preheatTargetSlider.addEventListener("input", fromPreheatSlider);
+  for (var i = 0; i < preheatMaterialRadios.length; i++) {
+    preheatMaterialRadios[i].addEventListener("change", updatePreheat);
+  }
+  updatePreheat();
 })();

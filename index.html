@@ -14,6 +14,7 @@
     <p>Eine einfachere, leichter wiederholbare Variante der bekannten &bdquo;Ultimate V60 Technique&ldquo; &ndash; mit festen 50-g-Schritten statt exakter Gramm-Ziele.</p>
     <nav class="toc">
       <a href="#vorbereitung">Vorbereitung</a>
+      <a href="#vorwaermen">Vorwärmen</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#warum">Warum das funktioniert</a>
       <a href="#troubleshooting">Troubleshooting</a>
@@ -62,8 +63,42 @@
       </ol>
     </section>
 
+    <section id="vorwaermen">
+      <h2><span class="num">03</span> Vorwärmen</h2>
+      <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Gib an, wie viel Wasser am Ende in der Kanne ankommen soll &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst.</p>
+
+      <div class="calc-grid">
+        <label class="calc-field">
+          <span class="calc-label">Zielmenge in der Kanne</span>
+          <div class="calc-input-row">
+            <input type="number" id="input-preheat-target" min="10" step="5" value="300" inputmode="decimal" />
+            <span class="calc-unit">g</span>
+          </div>
+          <input type="range" id="slider-preheat-target" class="calc-slider" min="50" max="1000" step="5" value="300" aria-label="Zielmenge in der Kanne" />
+          <span class="calc-hint">Wassermenge, die nach dem Vorwärmen unten ankommen soll</span>
+        </label>
+
+        <div class="calc-field">
+          <span class="calc-label">Material</span>
+          <div class="calc-toggle" role="radiogroup" aria-label="Material des Brühgeräts">
+            <label class="calc-toggle-option">
+              <input type="radio" name="preheat-material" id="material-plastik" value="plastik" />
+              <span>Kunststoff</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="preheat-material" id="material-keramik" value="keramik" checked />
+              <span>Keramik</span>
+            </label>
+          </div>
+          <span class="calc-hint">Keramik hält Wärme länger, braucht aber mehr Vorwärmzeit &ndash; und verdunstet mehr</span>
+        </div>
+      </div>
+
+      <div class="calc-result" id="preheat-result"></div>
+    </section>
+
     <section id="ablauf">
-      <h2><span class="num">03</span> Der Brühablauf</h2>
+      <h2><span class="num">04</span> Der Brühablauf</h2>
       <p class="ablauf-hint">Skaliert automatisch mit deiner Berechnung oben &ndash; Gießzeiten werden bei größeren Mengen länger, Wartezeiten zwischen den Güssen bleiben gleich.</p>
       <table class="time-table">
         <thead>
@@ -75,7 +110,7 @@
     </section>
 
     <section id="warum">
-      <h2><span class="num">04</span> Warum das funktioniert</h2>
+      <h2><span class="num">05</span> Warum das funktioniert</h2>
 
       <div class="why-item">
         <h3>Der Bloom</h3>
@@ -99,7 +134,7 @@
     </section>
 
     <section id="troubleshooting">
-      <h2><span class="num">05</span> Troubleshooting</h2>
+      <h2><span class="num">06</span> Troubleshooting</h2>
       <table>
         <thead>
           <tr><th>Problem</th><th>Ursache</th><th>Lösung</th></tr>
@@ -114,7 +149,7 @@
     </section>
 
     <section id="anpassungen">
-      <h2><span class="num">06</span> Anpassungen</h2>
+      <h2><span class="num">07</span> Anpassungen</h2>
       <dl class="adjustments">
         <dt>Andere Mengen</dt>
         <dd>Nutze den Rechner oben &ndash; das Verhältnis (1:16,7) und der Zeitplan bleiben gleich, nur die Gramm-Marken und Gießzeiten skalieren mit.</dd>
