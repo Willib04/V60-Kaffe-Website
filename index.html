@@ -13,9 +13,9 @@
     <h1>V60 Brühassistent</h1>
     <p>Rezept, Vorwärmen, Röstgrad und Bohnen-Notizen an einem Ort &ndash; abgeleitet aus James Hoffmanns &bdquo;A Better 1 Cup V60 Technique&ldquo; und für beliebige Mengen, Röstgrade und Brühgerät-Größen nachgerechnet.</p>
     <nav class="toc">
+      <a href="#vorwaermen">Vorwärmen</a>
       <a href="#bohnen">Bohnen-Notizen</a>
       <a href="#vorbereitung">Vorbereitung</a>
-      <a href="#vorwaermen">Vorwärmen</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#warum">Warum das funktioniert</a>
       <a href="#troubleshooting">Troubleshooting</a>
@@ -87,8 +87,42 @@
       <div id="capacity-note"></div>
     </section>
 
+    <section id="vorwaermen">
+      <h2><span class="num">02</span> Vorwärmen</h2>
+      <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Zielmenge ist die Wassermenge aus deinem Rezept oben &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst, damit genau die ankommt.</p>
+
+      <div class="calc-grid">
+        <div class="calc-field">
+          <span class="calc-label">Zielmenge in der Kanne</span>
+          <div class="calc-derived-row">
+            <span class="calc-derived-value" id="preheat-target-display">250</span>
+            <span class="calc-unit">g</span>
+            <span class="calc-derived-tag">aus Rezept oben</span>
+          </div>
+          <span class="calc-hint">Wassermenge, die nach dem Vorwärmen unten ankommen soll</span>
+        </div>
+
+        <div class="calc-field">
+          <span class="calc-label">Material</span>
+          <div class="calc-toggle" role="radiogroup" aria-label="Material des Brühgeräts">
+            <label class="calc-toggle-option">
+              <input type="radio" name="preheat-material" id="material-plastik" value="plastik" />
+              <span>Kunststoff</span>
+            </label>
+            <label class="calc-toggle-option">
+              <input type="radio" name="preheat-material" id="material-keramik" value="keramik" checked />
+              <span>Keramik</span>
+            </label>
+          </div>
+          <span class="calc-hint">Keramik hält Wärme länger, braucht aber mehr Vorwärmzeit &ndash; und verdunstet mehr</span>
+        </div>
+      </div>
+
+      <div class="calc-result" id="preheat-result"></div>
+    </section>
+
     <section id="bohnen">
-      <h2><span class="num">02</span> Bohnen-Notizen</h2>
+      <h2><span class="num">03</span> Bohnen-Notizen</h2>
       <p>Speichere Bohne, Röstgrad und die Mahlgrad-Einstellung deiner Mühle ab, um einen guten Kaffee später exakt zu reproduzieren. Die Einträge bleiben nur in diesem Browser gespeichert (localStorage) &ndash; nicht auf einem Server.</p>
 
       <div class="bean-form">
@@ -127,47 +161,13 @@
     </section>
 
     <section id="vorbereitung">
-      <h2><span class="num">03</span> Vorbereitung</h2>
+      <h2><span class="num">04</span> Vorbereitung</h2>
       <ol>
         <li>Filter in den V60 einlegen und mit heißem Wasser durchspülen. Das entfernt Papiergeschmack und heizt das Brühgerät vor.</li>
         <li>Spülwasser vollständig weggießen.</li>
         <li>Kaffeemehl in einen kleinen Hügel in den Filter schütten.</li>
         <li>Waage mit V60, Filter und Kaffee tarieren.</li>
       </ol>
-    </section>
-
-    <section id="vorwaermen">
-      <h2><span class="num">04</span> Vorwärmen</h2>
-      <p>Beim Durchspülen mit heißem Wasser geht etwas Menge verloren &ndash; ein Teil bleibt im Papierfilter hängen, ein Teil verdampft an der heißen Keramik. Keramik-Brühgeräte brauchen dafür spürbar länger als Kunststoff und verdunsten dadurch mehr. Zielmenge ist die Wassermenge aus deinem Rezept oben &ndash; der Rechner zeigt, wie viel du zum Vorwärmen tatsächlich aufgießen musst, damit genau die ankommt.</p>
-
-      <div class="calc-grid">
-        <div class="calc-field">
-          <span class="calc-label">Zielmenge in der Kanne</span>
-          <div class="calc-derived-row">
-            <span class="calc-derived-value" id="preheat-target-display">250</span>
-            <span class="calc-unit">g</span>
-            <span class="calc-derived-tag">aus Rezept oben</span>
-          </div>
-          <span class="calc-hint">Wassermenge, die nach dem Vorwärmen unten ankommen soll</span>
-        </div>
-
-        <div class="calc-field">
-          <span class="calc-label">Material</span>
-          <div class="calc-toggle" role="radiogroup" aria-label="Material des Brühgeräts">
-            <label class="calc-toggle-option">
-              <input type="radio" name="preheat-material" id="material-plastik" value="plastik" />
-              <span>Kunststoff</span>
-            </label>
-            <label class="calc-toggle-option">
-              <input type="radio" name="preheat-material" id="material-keramik" value="keramik" checked />
-              <span>Keramik</span>
-            </label>
-          </div>
-          <span class="calc-hint">Keramik hält Wärme länger, braucht aber mehr Vorwärmzeit &ndash; und verdunstet mehr</span>
-        </div>
-      </div>
-
-      <div class="calc-result" id="preheat-result"></div>
     </section>
 
     <section id="ablauf">
